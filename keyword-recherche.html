@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keyword-Recherche – HB-Metalle Hamm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --dark: #1e2124; --mid: #2c3035; --light: #3a3f44;
+      --border: #4a5058; --green: #2ecc71; --green-dark: #27ae60;
+      --green-glow: rgba(46,204,113,0.12);
+      --text: #f0f2f4; --muted: #8a9099; --dim: #5a6270;
+      --red: #e74c3c; --orange: #e67e22; --yellow: #f1c40f;
+      --blue: #3498db;
+      --font-d: 'Barlow Condensed', sans-serif;
+      --font-b: 'Barlow', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--dark); color: var(--text); font-family: var(--font-b); font-size: 14px; line-height: 1.5; }
+    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--dark); } ::-webkit-scrollbar-thumb { background: var(--border); }
+
+    /* ── Layout ── */
+    .page { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    aside {
+      background: var(--mid);
+      border-right: 1px solid var(--border);
+      position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; padding: 28px 0;
+    }
+    .aside-logo {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 20px 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .aside-logo .icon { width: 34px; height: 34px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .aside-logo strong { font-family: var(--font-d); font-size: 1.2rem; font-weight: 900; text-transform: uppercase; }
+    .aside-logo strong span { color: var(--green); }
+    .aside-section { padding: 6px 20px 10px; }
+    .aside-section h3 {
+      font-family: var(--font-d); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 6px;
+    }
+    .aside-section a {
+      display: block; padding: 6px 10px; border-radius: 3px;
+      color: var(--muted); font-size: 0.82rem;
+      transition: all 0.2s; text-decoration: none;
+      border-left: 2px solid transparent;
+    }
+    .aside-section a:hover { color: var(--green); background: var(--green-glow); border-left-color: var(--green); }
+
+    /* ── Main ── */
+    main { padding: 40px 48px; max-width: 1100px; }
+
+    /* ── Header ── */
+    .page-header { margin-bottom: 48px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .page-header .eyebrow {
+      font-family: var(--font-d); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-family: var(--font-d); font-size: 2.6rem; font-weight: 900;
+      text-transform: uppercase; line-height: 1; margin-bottom: 10px;
+    }
+    .page-header h1 span { color: var(--green); }
+    .page-header p { color: var(--muted); max-width: 680px; line-height: 1.65; }
+    .meta-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .pill {
+      font-family: var(--font-d); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 2px;
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .pill.green { border-color: rgba(46,204,113,0.4); color: var(--green); background: var(--green-glow); }
+
+    /* ── Section ── */
+    .section { margin-bottom: 60px; }
+    .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 20px; }
+    .section-num {
+      font-family: var(--font-d); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green); opacity: 0.7;
+    }
+    .section h2 {
+      font-family: var(--font-d); font-size: 1.5rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.03em;
+    }
+    .section h2 span { color: var(--green); }
+    .section-intro { color: var(--muted); line-height: 1.65; margin-bottom: 20px; max-width: 800px; }
+
+    /* ── Subsection ── */
+    .sub { margin-bottom: 32px; }
+    .sub h3 {
+      font-family: var(--font-d); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sub-note { font-size: 0.8rem; color: var(--dim); margin-bottom: 10px; line-height: 1.5; }
+
+    /* ── Tables ── */
+    .tbl-wrap { overflow-x: auto; border-radius: 4px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: var(--light); }
+    thead th {
+      font-family: var(--font-d); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); padding: 10px 14px; text-align: left;
+      white-space: nowrap;
+    }
+    tbody tr { border-top: 1px solid rgba(74,80,88,0.5); transition: background 0.15s; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody td { padding: 9px 14px; color: var(--text); font-size: 0.83rem; vertical-align: middle; }
+    .kw-cell { font-weight: 600; color: var(--text); font-size: 0.88rem; }
+
+    /* Badges */
+    .badge {
+      display: inline-block; padding: 2px 8px; border-radius: 2px;
+      font-family: var(--font-d); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
+    }
+    .badge-green  { background: rgba(46,204,113,0.15); color: var(--green); border: 1px solid rgba(46,204,113,0.3); }
+    .badge-yellow { background: rgba(241,196,15,0.15);  color: var(--yellow);  border: 1px solid rgba(241,196,15,0.3); }
+    .badge-orange { background: rgba(230,126,34,0.15);  color: var(--orange);  border: 1px solid rgba(230,126,34,0.3); }
+    .badge-red    { background: rgba(231,76,60,0.15);   color: var(--red);     border: 1px solid rgba(231,76,60,0.3); }
+    .badge-blue   { background: rgba(52,152,219,0.15);  color: var(--blue);    border: 1px solid rgba(52,152,219,0.3); }
+    .badge-gray   { background: rgba(255,255,255,0.06); color: var(--muted);   border: 1px solid var(--border); }
+    .badge-p1 { background: rgba(46,204,113,0.18); color: var(--green); border: 1px solid rgba(46,204,113,0.4); }
+    .badge-p2 { background: rgba(52,152,219,0.15); color: var(--blue);  border: 1px solid rgba(52,152,219,0.35); }
+    .badge-p3 { background: rgba(241,196,15,0.12); color: var(--yellow); border: 1px solid rgba(241,196,15,0.3); }
+
+    /* Volume pill */
+    .vol { font-family: var(--font-d); font-weight: 700; font-size: 0.85rem; color: var(--text); }
+    .vol-low  { color: var(--muted); }
+    .vol-mid  { color: var(--yellow); }
+    .vol-high { color: var(--orange); }
+    .vol-vhigh { color: var(--red); }
+
+    /* Competition bar */
+    .comp-bar { display: flex; align-items: center; gap: 8px; }
+    .bar { height: 4px; border-radius: 2px; min-width: 4px; }
+
+    /* Priority cards */
+    .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+    .phase-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: 4px; padding: 20px;
+    }
+    .phase-card.p1 { border-top: 3px solid var(--green); }
+    .phase-card.p2 { border-top: 3px solid var(--blue); }
+    .phase-card.p3 { border-top: 3px solid var(--yellow); }
+    .phase-card .phase-label {
+      font-family: var(--font-d); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .phase-card .phase-title {
+      font-family: var(--font-d); font-size: 1.1rem; font-weight: 800;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .phase-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+    /* City zones */
+    .zone-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 28px; }
+    .zone-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: 4px; padding: 16px;
+    }
+    .zone-card .zone-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    }
+    .zone-card .zone-title {
+      font-family: var(--font-d); font-size: 0.85rem; font-weight: 800;
+      text-transform: uppercase;
+    }
+    .zone-card ul { display: flex; flex-direction: column; gap: 4px; }
+    .zone-card ul li {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.8rem; padding: 3px 0;
+      border-bottom: 1px solid rgba(74,80,88,0.3);
+    }
+    .zone-card ul li:last-child { border-bottom: none; }
+    .zone-card ul li span { color: var(--dim); font-size: 0.75rem; }
+
+    /* Architecture */
+    .arch-box {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: 4px; padding: 24px; font-family: monospace;
+      font-size: 0.8rem; line-height: 1.8; color: var(--muted);
+      overflow-x: auto;
+    }
+    .arch-box .d { color: var(--green); font-weight: bold; }
+    .arch-box .f { color: var(--blue); }
+    .arch-box .c { color: var(--dim); font-style: italic; }
+
+    /* Seasonal */
+    .season-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .season-card {
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: 4px; padding: 16px;
+    }
+    .season-card .s-label {
+      font-family: var(--font-d); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 4px;
+    }
+    .season-card .s-title {
+      font-family: var(--font-d); font-size: 1rem; font-weight: 800;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .season-card .s-peak {
+      display: inline-block; font-family: var(--font-d); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px;
+      border-radius: 2px; margin-bottom: 8px;
+    }
+    .season-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .season-card ul { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; }
+    .season-card ul li { font-size: 0.75rem; color: var(--dim); padding-left: 10px; position: relative; }
+    .season-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--green); }
+
+    /* Info box */
+    .infobox {
+      background: var(--green-glow); border: 1px solid rgba(46,204,113,0.25);
+      border-radius: 4px; padding: 16px 20px; margin-bottom: 20px;
+      font-size: 0.83rem; color: var(--muted); line-height: 1.6;
+    }
+    .infobox strong { color: var(--green); }
+
+    /* Top 20 */
+    .top20 { display: flex; flex-direction: column; gap: 6px; }
+    .top20-row {
+      display: grid; grid-template-columns: 28px 1fr 120px 100px 80px;
+      align-items: center; gap: 12px;
+      background: var(--mid); border: 1px solid var(--border);
+      border-radius: 3px; padding: 10px 14px;
+      transition: border-color 0.2s;
+    }
+    .top20-row:hover { border-color: var(--green); }
+    .top20-row.p1 { border-left: 3px solid var(--green); }
+    .top20-row.p2 { border-left: 3px solid var(--blue); }
+    .top20-row.p3 { border-left: 3px solid var(--yellow); }
+    .top20-num { font-family: var(--font-d); font-size: 0.75rem; font-weight: 700; color: var(--dim); }
+    .top20-kw  { font-weight: 600; font-size: 0.88rem; }
+    .top20-vol { font-family: var(--font-d); font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+
+    @media (max-width: 1024px) {
+      .page { grid-template-columns: 1fr; }
+      aside { display: none; }
+      main { padding: 24px; }
+      .phase-grid, .zone-grid { grid-template-columns: 1fr; }
+      .season-grid { grid-template-columns: repeat(2, 1fr); }
+      .top20-row { grid-template-columns: 28px 1fr 100px 80px; }
+      .top20-row > *:nth-child(5) { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- SIDEBAR -->
+  <aside>
+    <div class="aside-logo">
+      <div class="icon">♻</div>
+      <strong>HB-<span>Metalle</span></strong>
+    </div>
+
+    <div class="aside-section">
+      <h3>Navigation</h3>
+      <a href="#top20">Top 20 Keywords</a>
+      <a href="#staedte">Städte im Umkreis</a>
+      <a href="#lokal">Lokale Keywords</a>
+      <a href="#nrw">NRW-Keywords</a>
+      <a href="#deutschland">Bundesweit</a>
+      <a href="#longtail">Long-Tail</a>
+      <a href="#phasen">Phasenplan</a>
+      <a href="#architektur">Website-Struktur</a>
+      <a href="#saison">Saisonalität</a>
+      <a href="#wettbewerb">Wettbewerber</a>
+    </div>
+
+    <div class="aside-section" style="margin-top:12px">
+      <h3>Legende – Suchvolumen</h3>
+      <a href="#" style="cursor:default">
+        <span class="vol vol-low">50–200</span> &nbsp;Gering
+      </a>
+      <a href="#" style="cursor:default">
+        <span class="vol vol-mid">200–600</span> &nbsp;Mittel
+      </a>
+      <a href="#" style="cursor:default">
+        <span class="vol vol-high">600–2.000</span> &nbsp;Hoch
+      </a>
+      <a href="#" style="cursor:default">
+        <span class="vol vol-vhigh">2.000+</span> &nbsp;Sehr hoch
+      </a>
+    </div>
+
+    <div class="aside-section" style="margin-top:12px">
+      <h3>Legende – Konkurrenz</h3>
+      <a href="#" style="cursor:default"><span class="badge badge-green">Niedrig</span></a>
+      <a href="#" style="cursor:default"><span class="badge badge-yellow">Mittel</span></a>
+      <a href="#" style="cursor:default"><span class="badge badge-orange">Hoch</span></a>
+      <a href="#" style="cursor:default"><span class="badge badge-red">Sehr hoch</span></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <div class="page-header">
+      <p class="eyebrow">SEO / Keyword-Recherche</p>
+      <h1>Keywords für <span>HB-Metalle</span></h1>
+      <p>Vollständige Keyword-Analyse für Schrottabholung & Metallankauf. Standort Hamm, NRW. Einsatzgebiet: ganz NRW + bis 500 km Umkreis. Stand: März 2026.</p>
+      <div class="meta-pills">
+        <div class="pill green">Hamm, NRW</div>
+        <div class="pill">50 km Umkreis detailliert</div>
+        <div class="pill">500 km Einsatzradius</div>
+        <div class="pill">9 Leistungen</div>
+        <div class="pill">Privat & Gewerbe</div>
+      </div>
+    </div>
+
+    <!-- TOP 20 -->
+    <div class="section" id="top20">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>Top 20 <span>Prioritäts-Keywords</span></h2>
+      </div>
+      <p class="section-intro">Die 20 wichtigsten Keywords nach Priorität sortiert. Sofort = Homepage &amp; erste Landingpages. Phase 2–3 = schrittweiser Aufbau.</p>
+
+      <div class="top20">
+        <div class="top20-row p1"><span class="top20-num">01</span><span class="top20-kw">Schrottabholung Hamm</span><span class="top20-vol vol-mid">300–600/Mo.</span><span class="badge badge-yellow">Mittel</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">02</span><span class="top20-kw">Schrottankauf Hamm</span><span class="top20-vol vol-mid">200–400/Mo.</span><span class="badge badge-yellow">Mittel</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">03</span><span class="top20-kw">Schrotthändler Hamm</span><span class="top20-vol vol-low">100–250/Mo.</span><span class="badge badge-yellow">Mittel</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">04</span><span class="top20-kw">Schrottabholung Unna</span><span class="top20-vol vol-low">150–300/Mo.</span><span class="badge badge-green">Niedrig</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">05</span><span class="top20-kw">Schrottabholung Ahlen</span><span class="top20-vol vol-low">100–200/Mo.</span><span class="badge badge-green">Niedrig</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">06</span><span class="top20-kw">Schrottabholung Soest</span><span class="top20-vol vol-low">150–300/Mo.</span><span class="badge badge-green">Niedrig</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">07</span><span class="top20-kw">Haushaltsauflösung Hamm</span><span class="top20-vol vol-low">100–300/Mo.</span><span class="badge badge-yellow">Mittel</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">08</span><span class="top20-kw">Metallankauf Hamm</span><span class="top20-vol vol-low">50–150/Mo.</span><span class="badge badge-green">Niedrig</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">09</span><span class="top20-kw">Kupferankauf Hamm</span><span class="top20-vol vol-low">50–100/Mo.</span><span class="badge badge-green">Niedrig</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">10</span><span class="top20-kw">Firmenauflösung Hamm</span><span class="top20-vol vol-low">50–150/Mo.</span><span class="badge badge-green">Niedrig</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">11</span><span class="top20-kw">Containerdienst Schrott Hamm</span><span class="top20-vol vol-low">50–100/Mo.</span><span class="badge badge-green">Niedrig</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p1"><span class="top20-num">12</span><span class="top20-kw">NE-Metalle Ankauf NRW</span><span class="top20-vol vol-low">50–150/Mo.</span><span class="badge badge-yellow">Mittel</span><span class="badge badge-p1">Sofort</span></div>
+        <div class="top20-row p2"><span class="top20-num">13</span><span class="top20-kw">Elektromotoren Ankauf NRW</span><span class="top20-vol vol-mid">200–600/Mo.</span><span class="badge badge-yellow">Mittel</span><span class="badge badge-p2">Phase 2</span></div>
+        <div class="top20-row p2"><span class="top20-num">14</span><span class="top20-kw">Stapler Ankauf NRW</span><span class="top20-vol vol-mid">300–800/Mo.</span><span class="badge badge-yellow">Mittel</span><span class="badge badge-p2">Phase 2</span></div>
+        <div class="top20-row p2"><span class="top20-num">15</span><span class="top20-kw">Schrottabholung Dortmund</span><span class="top20-vol vol-high">800–2.000/Mo.</span><span class="badge badge-orange">Hoch</span><span class="badge badge-p2">Phase 2</span></div>
+        <div class="top20-row p2"><span class="top20-num">16</span><span class="top20-kw">Schrottabholung Münster</span><span class="top20-vol vol-high">400–900/Mo.</span><span class="badge badge-orange">Hoch</span><span class="badge badge-p2">Phase 2</span></div>
+        <div class="top20-row p2"><span class="top20-num">17</span><span class="top20-kw">Schrottabholung Lünen</span><span class="top20-vol vol-low">150–350/Mo.</span><span class="badge badge-yellow">Mittel</span><span class="badge badge-p2">Phase 2</span></div>
+        <div class="top20-row p2"><span class="top20-num">18</span><span class="top20-kw">Industriedemontage NRW</span><span class="top20-vol vol-low">100–300/Mo.</span><span class="badge badge-yellow">Mittel</span><span class="badge badge-p2">Phase 2</span></div>
+        <div class="top20-row p3"><span class="top20-num">19</span><span class="top20-kw">Schrottabholung NRW</span><span class="top20-vol vol-vhigh">1.000–3.000/Mo.</span><span class="badge badge-red">Sehr hoch</span><span class="badge badge-p3">Phase 3</span></div>
+        <div class="top20-row p3"><span class="top20-num">20</span><span class="top20-kw">Kostenlose Schrottabholung NRW</span><span class="top20-vol vol-high">500–1.200/Mo.</span><span class="badge badge-orange">Hoch</span><span class="badge badge-p3">Phase 3</span></div>
+      </div>
+    </div>
+
+    <!-- STÄDTE IM UMKREIS -->
+    <div class="section" id="staedte">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>Städte im <span>Umkreis Hamm</span></h2>
+      </div>
+      <p class="section-intro">Alle Städte und Gemeinden im Umkreis von 50 km, sortiert nach Entfernung und Größe. Je größer die Stadt, desto höher das potenzielle Suchvolumen – je kleiner, desto leichter rankbar.</p>
+
+      <div class="zone-grid">
+        <!-- Zone A -->
+        <div class="zone-card">
+          <div class="zone-header">
+            <span class="zone-title">Zone A</span>
+            <span class="badge badge-p1">0–20 km</span>
+          </div>
+          <ul>
+            <li><strong>Hamm</strong> <span>Standort · 180.000 Ew.</span></li>
+            <li><strong>Unna</strong> <span>~18 km · 59.000 Ew.</span></li>
+            <li><strong>Ahlen</strong> <span>~10 km · 55.000 Ew.</span></li>
+            <li><strong>Kamen</strong> <span>~15 km · 46.000 Ew.</span></li>
+            <li><strong>Bergkamen</strong> <span>~14 km · 49.000 Ew.</span></li>
+            <li><strong>Werne</strong> <span>~10 km · 32.000 Ew.</span></li>
+            <li><strong>Beckum</strong> <span>~16 km · 37.000 Ew.</span></li>
+            <li><strong>Werl</strong> <span>~15 km · 30.000 Ew.</span></li>
+            <li><strong>Bönen</strong> <span>~8 km · 13.000 Ew.</span></li>
+            <li><strong>Drensteinfurt</strong> <span>~13 km · 14.000 Ew.</span></li>
+            <li><strong>Sendenhorst</strong> <span>~17 km · 12.000 Ew.</span></li>
+            <li><strong>Welver</strong> <span>~19 km · 13.000 Ew.</span></li>
+            <li><strong>Ascheberg</strong> <span>~18 km · 14.000 Ew.</span></li>
+            <li><strong>Wickede (Ruhr)</strong> <span>~19 km · 12.000 Ew.</span></li>
+            <li><strong>Lippetal</strong> <span>~20 km · 13.000 Ew.</span></li>
+            <li><strong>Ennigerloh</strong> <span>~22 km · 18.000 Ew.</span></li>
+          </ul>
+        </div>
+
+        <!-- Zone B -->
+        <div class="zone-card">
+          <div class="zone-header">
+            <span class="zone-title">Zone B</span>
+            <span class="badge badge-p2">20–35 km</span>
+          </div>
+          <ul>
+            <li><strong>Dortmund</strong> <span>~31 km · 603.000 Ew.</span></li>
+            <li><strong>Münster</strong> <span>~34 km · 308.000 Ew.</span></li>
+            <li><strong>Lünen</strong> <span>~32 km · 86.000 Ew.</span></li>
+            <li><strong>Iserlohn</strong> <span>~34 km · 94.000 Ew.</span></li>
+            <li><strong>Arnsberg</strong> <span>~35 km · 73.000 Ew.</span></li>
+            <li><strong>Lippstadt</strong> <span>~35 km · 68.000 Ew.</span></li>
+            <li><strong>Soest</strong> <span>~22 km · 48.000 Ew.</span></li>
+            <li><strong>Schwerte</strong> <span>~31 km · 48.000 Ew.</span></li>
+            <li><strong>Menden</strong> <span>~24 km · 53.000 Ew.</span></li>
+            <li><strong>Warendorf</strong> <span>~31 km · 39.000 Ew.</span></li>
+            <li><strong>Selm</strong> <span>~23 km · 26.000 Ew.</span></li>
+            <li><strong>Oelde</strong> <span>~27 km · 30.000 Ew.</span></li>
+            <li><strong>Waltrop</strong> <span>~28 km · 29.000 Ew.</span></li>
+            <li><strong>Datteln</strong> <span>~33 km · 35.000 Ew.</span></li>
+            <li><strong>Fröndenberg/Ruhr</strong> <span>~28 km · 20.000 Ew.</span></li>
+            <li><strong>Hemer</strong> <span>~32 km · 35.000 Ew.</span></li>
+            <li><strong>Holzwickede</strong> <span>~24 km · 17.000 Ew.</span></li>
+            <li><strong>Telgte</strong> <span>~33 km · 20.000 Ew.</span></li>
+          </ul>
+        </div>
+
+        <!-- Zone C -->
+        <div class="zone-card">
+          <div class="zone-header">
+            <span class="zone-title">Zone C</span>
+            <span class="badge badge-p3">35–50 km</span>
+          </div>
+          <ul>
+            <li><strong>Bochum</strong> <span>~46 km · 359.000 Ew.</span></li>
+            <li><strong>Hagen</strong> <span>~43 km · 188.000 Ew.</span></li>
+            <li><strong>Herne</strong> <span>~38 km · 156.000 Ew.</span></li>
+            <li><strong>Bottrop</strong> <span>~48 km · 117.000 Ew.</span></li>
+            <li><strong>Recklinghausen</strong> <span>~40 km · 116.000 Ew.</span></li>
+            <li><strong>Marl</strong> <span>~46 km · 82.000 Ew.</span></li>
+            <li><strong>Dorsten</strong> <span>~45 km · 76.000 Ew.</span></li>
+            <li><strong>Castrop-Rauxel</strong> <span>~37 km · 72.000 Ew.</span></li>
+            <li><strong>Lüdenscheid</strong> <span>~49 km · 73.000 Ew.</span></li>
+            <li><strong>Gladbeck</strong> <span>~48 km · 76.000 Ew.</span></li>
+            <li><strong>Gelsenkirchen</strong> <span>~50 km · 268.000 Ew.</span></li>
+            <li><strong>Witten</strong> <span>~40 km · 97.000 Ew.</span></li>
+            <li><strong>Haltern am See</strong> <span>~44 km · 38.000 Ew.</span></li>
+            <li><strong>Coesfeld</strong> <span>~44 km · 38.000 Ew.</span></li>
+            <li><strong>Wetter (Ruhr)</strong> <span>~42 km · 27.000 Ew.</span></li>
+            <li><strong>Herdecke</strong> <span>~40 km · 23.000 Ew.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="infobox">
+        <strong>Hinweis für 500 km Einsatzgebiet:</strong> Über NRW hinaus sind folgende Bundesländer / Regionen relevant: <strong>Niedersachsen, Hessen, Rheinland-Pfalz, Baden-Württemberg, Bayern (nördlich), Thüringen, Sachsen-Anhalt</strong>. Für diese Regionen empfehlen sich Bundesland-Seiten statt Stadtseiten (z. B. „Schrottabholung Niedersachsen", „Metallankauf Hessen").
+      </div>
+    </div>
+
+    <!-- LOKALE KEYWORDS -->
+    <div class="section" id="lokal">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Lokale <span>Stadt-Keywords</span></h2>
+      </div>
+
+      <!-- Zone A -->
+      <div class="sub">
+        <h3>Zone A – 0–20 km (höchste Priorität, niedrige Konkurrenz)</h3>
+        <p class="sub-note">Für kleine Städte ist die Konkurrenz minimal. Jede Stadt verdient eine eigene Landingpage. Rankingzeit: 1–4 Wochen nach Indexierung.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr><th>Keyword</th><th>Suchvolumen / Mo.</th><th>Konkurrenz</th><th>Prio.</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="kw-cell">Schrottabholung Hamm</td><td><span class="vol vol-mid">300–600</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottankauf Hamm</td><td><span class="vol vol-mid">200–400</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrotthändler Hamm</td><td><span class="vol vol-low">100–250</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Metallankauf Hamm</td><td><span class="vol vol-low">50–150</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Kupferankauf Hamm</td><td><span class="vol vol-low">50–100</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Messingankauf Hamm</td><td><span class="vol vol-low">20–60</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Aluminiumankauf Hamm</td><td><span class="vol vol-low">20–60</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Haushaltsauflösung Hamm</td><td><span class="vol vol-low">100–300</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Firmenauflösung Hamm</td><td><span class="vol vol-low">50–150</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Containerdienst Schrott Hamm</td><td><span class="vol vol-low">50–100</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Demontage Hamm</td><td><span class="vol vol-low">50–150</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Elektromotoren Ankauf Hamm</td><td><span class="vol vol-low">20–60</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Unna</td><td><span class="vol vol-low">150–300</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Ahlen</td><td><span class="vol vol-low">100–200</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Kamen</td><td><span class="vol vol-low">100–200</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Bergkamen</td><td><span class="vol vol-low">100–200</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Werne</td><td><span class="vol vol-low">50–150</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Beckum</td><td><span class="vol vol-low">100–200</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Soest</td><td><span class="vol vol-low">150–300</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Werl</td><td><span class="vol vol-low">50–100</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Lippstadt</td><td><span class="vol vol-low">100–250</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Bönen</td><td><span class="vol vol-low">30–80</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Welver</td><td><span class="vol vol-low">20–60</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Wickede</td><td><span class="vol vol-low">20–60</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Zone B -->
+      <div class="sub">
+        <h3>Zone B – 20–35 km (mittlere Priorität)</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr><th>Keyword</th><th>Suchvolumen / Mo.</th><th>Konkurrenz</th><th>Prio.</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="kw-cell">Schrottabholung Dortmund</td><td><span class="vol vol-high">800–2.000</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottankauf Dortmund</td><td><span class="vol vol-high">600–1.500</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Münster</td><td><span class="vol vol-high">400–900</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Lünen</td><td><span class="vol vol-low">150–350</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Iserlohn</td><td><span class="vol vol-low">150–300</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Arnsberg</td><td><span class="vol vol-low">150–300</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Lippstadt</td><td><span class="vol vol-low">100–250</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Schwerte</td><td><span class="vol vol-low">80–180</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Menden</td><td><span class="vol vol-low">80–180</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Warendorf</td><td><span class="vol vol-low">60–150</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Datteln</td><td><span class="vol vol-low">60–120</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Selm</td><td><span class="vol vol-low">40–100</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Waltrop</td><td><span class="vol vol-low">40–100</span></td><td><span class="badge badge-green">Niedrig</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Zone C -->
+      <div class="sub">
+        <h3>Zone C – 35–50 km (Großstädte, langfristig)</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr><th>Keyword</th><th>Suchvolumen / Mo.</th><th>Konkurrenz</span></th><th>Prio.</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="kw-cell">Schrottabholung Bochum</td><td><span class="vol vol-high">500–1.000</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Hagen</td><td><span class="vol vol-mid">300–600</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Gelsenkirchen</td><td><span class="vol vol-mid">350–700</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Herne</td><td><span class="vol vol-mid">200–450</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Recklinghausen</td><td><span class="vol vol-mid">200–450</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Witten</td><td><span class="vol vol-low">100–250</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Bottrop</td><td><span class="vol vol-low">100–250</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Marl</td><td><span class="vol vol-low">80–200</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Dorsten</td><td><span class="vol vol-low">80–180</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Castrop-Rauxel</td><td><span class="vol vol-low">80–160</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Lüdenscheid</td><td><span class="vol vol-low">80–160</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- NRW-KEYWORDS -->
+    <div class="section" id="nrw">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2>NRW & <span>Bundesland-Keywords</span></h2>
+      </div>
+      <p class="section-intro">Bundeslandweite Keywords haben hohes Suchvolumen, aber starke Konkurrenz von etablierten NRW-weiten Anbietern. Trotzdem unverzichtbar für Sichtbarkeit und Backlinks.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Keyword</th><th>Suchvolumen / Mo.</th><th>Konkurrenz</th><th>Prio.</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="kw-cell">Schrottabholung NRW</td><td><span class="vol vol-vhigh">1.000–3.000</span></td><td><span class="badge badge-red">Sehr hoch</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+            <tr><td class="kw-cell">Schrottankauf NRW</td><td><span class="vol vol-vhigh">800–2.000</span></td><td><span class="badge badge-red">Sehr hoch</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+            <tr><td class="kw-cell">Kostenlose Schrottabholung NRW</td><td><span class="vol vol-high">500–1.200</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+            <tr><td class="kw-cell">Schrotthändler NRW</td><td><span class="vol vol-high">500–1.200</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+            <tr><td class="kw-cell">Metallankauf NRW</td><td><span class="vol vol-mid">300–700</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+            <tr><td class="kw-cell">Haushaltsauflösung NRW</td><td><span class="vol vol-high">500–1.500</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            <tr><td class="kw-cell">Firmenauflösung NRW</td><td><span class="vol vol-mid">300–800</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            <tr><td class="kw-cell">Industriedemontage NRW</td><td><span class="vol vol-low">100–300</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            <tr><td class="kw-cell">Containerdienst Schrott NRW</td><td><span class="vol vol-low">100–300</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            <tr><td class="kw-cell">NE-Metalle Ankauf NRW</td><td><span class="vol vol-low">50–150</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+            <tr><td class="kw-cell">Elektromotoren Ankauf NRW</td><td><span class="vol vol-mid">200–600</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+            <tr><td class="kw-cell">Stapler Ankauf NRW</td><td><span class="vol vol-mid">300–800</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+            <tr><td class="kw-cell">Baumaschinen Ankauf NRW</td><td><span class="vol vol-low">100–300</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            <tr><td class="kw-cell">Kupfer Ankauf NRW</td><td><span class="vol vol-low">100–250</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            <tr><td class="kw-cell">Altmetallankauf NRW</td><td><span class="vol vol-mid">200–500</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            <tr><td class="kw-cell">Schrottabholung Nordrhein-Westfalen</td><td><span class="vol vol-mid">200–500</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-p3">Phase 3</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DEUTSCHLAND-KEYWORDS -->
+    <div class="section" id="deutschland">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2>Bundesweite <span>Keywords</span></h2>
+      </div>
+      <p class="section-intro">Nationale Keywords mit sehr hohem Volumen. Realistisch für HB-Metalle erst in Phase 3+, aber nützlich als Informationsseiten (Blog, Preisübersichten).</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Keyword</th><th>Suchvolumen / Mo.</th><th>Konkurrenz</th><th>Typ</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="kw-cell">Schrottabholung</td><td><span class="vol vol-vhigh">5.000–15.000</span></td><td><span class="badge badge-red">Sehr hoch</span></td><td><span class="badge badge-blue">Info+Transakt.</span></td></tr>
+            <tr><td class="kw-cell">Schrottankauf</td><td><span class="vol vol-vhigh">5.000–12.000</span></td><td><span class="badge badge-red">Sehr hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Schrotthändler</td><td><span class="vol vol-vhigh">3.000–8.000</span></td><td><span class="badge badge-red">Sehr hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Schrottpreise aktuell</td><td><span class="vol vol-vhigh">2.000–5.000</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-gray">Informational</span></td></tr>
+            <tr><td class="kw-cell">Altmetall verkaufen</td><td><span class="vol vol-vhigh">2.000–5.000</span></td><td><span class="badge badge-red">Sehr hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Haushaltsauflösung</td><td><span class="vol vol-vhigh">5.000–15.000</span></td><td><span class="badge badge-red">Sehr hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Kupfer verkaufen</td><td><span class="vol vol-vhigh">1.000–3.000</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Kupferankauf</td><td><span class="vol vol-high">800–2.000</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Metallankauf</td><td><span class="vol vol-vhigh">1.000–3.000</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Messingankauf</td><td><span class="vol vol-high">400–1.000</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Aluminiumankauf</td><td><span class="vol vol-high">400–1.000</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Stapler Ankauf</td><td><span class="vol vol-mid">300–800</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Maschinen Ankauf</td><td><span class="vol vol-high">500–1.500</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Elektromotoren Ankauf</td><td><span class="vol vol-mid">200–600</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Baumaschinen Ankauf</td><td><span class="vol vol-mid">300–700</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Firmenauflösung</td><td><span class="vol vol-vhigh">2.000–5.000</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Containerdienst Schrott</td><td><span class="vol vol-high">500–1.500</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Schrotthändler in der Nähe</td><td><span class="vol vol-vhigh">1.000–3.000</span></td><td><span class="badge badge-orange">Hoch</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">NE-Metalle Ankauf</td><td><span class="vol vol-low">100–300</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+            <tr><td class="kw-cell">Buntmetall Ankauf</td><td><span class="vol vol-low">200–500</span></td><td><span class="badge badge-yellow">Mittel</span></td><td><span class="badge badge-blue">Transaktional</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LONG-TAIL -->
+    <div class="section" id="longtail">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2>Long-Tail mit <span>hoher Kaufabsicht</span></h2>
+      </div>
+      <p class="section-intro">Long-Tail-Keywords haben niedrigeres Volumen, aber deutlich höhere Konversionsraten – der Nutzer hat eine klare Kaufabsicht. Diese Keywords sind oft der direkteste Weg zum Kunden.</p>
+
+      <div class="sub">
+        <h3>Sofortige Abholabsicht (höchste Conversion-Rate)</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Keyword</th><th>Intent</th><th>Prio.</th></tr></thead>
+            <tbody>
+              <tr><td class="kw-cell">Schrottabholung Hamm kostenlos</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">wer holt Schrott ab in Hamm</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrotthändler Hamm sofort abholen</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrott entsorgen Hamm kostenlos</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Altmetall abholen Hamm</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrott abholen lassen NRW</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Alteisen abholen Hamm kostenlos</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottabholung Hamm Privathaushalt</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Materialspezifische Kaufabsicht</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Keyword</th><th>Intent</th><th>Prio.</th></tr></thead>
+            <tbody>
+              <tr><td class="kw-cell">Kupfer verkaufen Hamm bester Preis</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Kupfer Ankauf Hamm Preis pro kg</td><td><span class="badge badge-gray">Informational</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Messing Ankauf Hamm Barzahlung</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Kabelschrott verkaufen Hamm</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">NE-Metalle verkaufen Westfalen</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Buntmetall Ankauf Hamm fair</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Aluminiumschrott verkaufen NRW</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Geräte / B2B-Intent</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Keyword</th><th>Intent</th><th>Prio.</th></tr></thead>
+            <tbody>
+              <tr><td class="kw-cell">Gabelstapler Ankauf NRW Barzahlung</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Stapler verkaufen NRW Ankauf</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Elektromotoren verkaufen Hamm NRW</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Industriemaschinen Ankauf Westfalen</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Baumaschinen verkaufen NRW Ankauf</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Industriedemontage Hamm Angebot</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottankauf Gewerbebetrieb NRW</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Kupferkabel Ankauf Großmengen NRW</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Auflösungen & Entrümpelung</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Keyword</th><th>Intent</th><th>Prio.</th></tr></thead>
+            <tbody>
+              <tr><td class="kw-cell">Haushaltsauflösung Hamm kostenlos</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Entrümpelung mit Schrottabholung Hamm</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Firmenauflösung Hamm Schrottankauf</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Betriebsauflösung NRW Schrottankauf</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Schrottcontainer mieten Hamm</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p1">Sofort</span></td></tr>
+              <tr><td class="kw-cell">Schrottcontainer bestellen NRW</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+              <tr><td class="kw-cell">Abrollcontainer Schrott NRW</td><td><span class="badge badge-blue">Transaktional</span></td><td><span class="badge badge-p2">Phase 2</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASENPLAN -->
+    <div class="section" id="phasen">
+      <div class="section-header">
+        <span class="section-num">07</span>
+        <h2>Strategie <span>Phasenplan</span></h2>
+      </div>
+
+      <div class="phase-grid">
+        <div class="phase-card p1">
+          <p class="phase-label">Monate 1–3</p>
+          <p class="phase-title" style="color:var(--green)">Phase 1 — Sofort</p>
+          <p>Homepage + 15 Stadtseiten (Zone A) + Leistungsseiten. Google My Business vollständig befüllen. Alle kleinstädtischen Keywords sind in 2–4 Wochen rankbar.</p>
+        </div>
+        <div class="phase-card p2">
+          <p class="phase-label">Monate 4–9</p>
+          <p class="phase-title" style="color:var(--blue)">Phase 2 — Wachstum</p>
+          <p>Zone B + C Städte: Dortmund, Münster, Herne, Lünen usw. NRW-Leistungsseiten. Spezial-Seiten für B2B: Stapler, Elektromotoren, Industriedemontage.</p>
+        </div>
+        <div class="phase-card p3">
+          <p class="phase-label">Monate 10+</p>
+          <p class="phase-title" style="color:var(--yellow)">Phase 3 — Autorität</p>
+          <p>NRW-Hauptseiten, Schrottpreise-Blog, alle Großstädte. Backlink-Aufbau, Einträge in Branchenverzeichnisse. Ziel: Top 3 für „Schrottabholung NRW".</p>
+        </div>
+      </div>
+
+      <div class="infobox">
+        <strong>Schnellster ROI:</strong> Die Zone-A-Stadtseiten (0–20 km) können mit wenig Aufwand in 2–4 Wochen auf Seite 1 ranken, weil kaum Konkurrenz vorhanden ist. Diese sollten als erstes erstellt werden. Jede Seite braucht mindestens 300–500 Wörter lokalen Content + Schema-Markup + Google My Business-Verlinkung.
+      </div>
+    </div>
+
+    <!-- WEBSITE-STRUKTUR -->
+    <div class="section" id="architektur">
+      <div class="section-header">
+        <span class="section-num">08</span>
+        <h2>Empfohlene <span>Website-Struktur</span></h2>
+      </div>
+      <p class="section-intro">URL-Architektur nach dem „City Page Factory"-Muster, das alle Top-NRW-Schrotthändler verwenden. Jede Stadt = eine dedizierte URL.</p>
+
+      <div class="arch-box">
+<span class="d">hb-metalle.de/</span><br>
+├── <span class="f">schrottabholung/</span> <span class="c">← Haupt-Service-Seite (NRW-weit)</span><br>
+│   ├── <span class="f">hamm/</span> <span class="c">← Primäre Stadtseite</span><br>
+│   ├── <span class="f">unna/</span><br>
+│   ├── <span class="f">ahlen/</span><br>
+│   ├── <span class="f">kamen/</span><br>
+│   ├── <span class="f">bergkamen/</span><br>
+│   ├── <span class="f">werne/</span><br>
+│   ├── <span class="f">beckum/</span><br>
+│   ├── <span class="f">soest/</span><br>
+│   ├── <span class="f">lippstadt/</span><br>
+│   ├── <span class="f">werl/</span><br>
+│   ├── <span class="f">dortmund/</span> <span class="c">← Phase 2</span><br>
+│   ├── <span class="f">muenster/</span> <span class="c">← Phase 2</span><br>
+│   ├── <span class="f">luenen/</span> <span class="c">← Phase 2</span><br>
+│   ├── <span class="f">herne/</span> <span class="c">← Phase 2</span><br>
+│   └── <span class="f">[weitere Städte Phase 2+3]</span><br>
+├── <span class="f">metallankauf/</span><br>
+│   ├── <span class="f">kupferankauf/</span><br>
+│   ├── <span class="f">messingankauf/</span><br>
+│   ├── <span class="f">aluminiumankauf/</span><br>
+│   └── <span class="f">ne-metalle/</span><br>
+├── <span class="f">maschinen-ankauf/</span><br>
+│   ├── <span class="f">elektromotoren/</span><br>
+│   ├── <span class="f">stapler-ankauf/</span><br>
+│   └── <span class="f">baumaschinen/</span><br>
+├── <span class="f">containerdienst/</span><br>
+├── <span class="f">haushaltsaufloesung/</span><br>
+├── <span class="f">firmenaufloesung/</span><br>
+├── <span class="f">demontagen/</span><br>
+└── <span class="f">schrottpreise/</span> <span class="c">← Blog/Info für „Schrottpreise aktuell"</span>
+      </div>
+    </div>
+
+    <!-- SAISONALITÄT -->
+    <div class="section" id="saison">
+      <div class="section-header">
+        <span class="section-num">09</span>
+        <h2><span>Saisonale</span> Strategie</h2>
+      </div>
+
+      <div class="season-grid">
+        <div class="season-card">
+          <p class="s-label">Jan – März</p>
+          <p class="s-title">Q1 — Ruhe</p>
+          <span class="s-peak badge badge-yellow">Mittel</span>
+          <p>Nach Weihnachten ruhigere Phase. Industrie startet Wartungssaison – Maschinen werden frei.</p>
+          <ul>
+            <li>Maschinen Ankauf pushen</li>
+            <li>Elektromotoren Seiten</li>
+            <li>B2B-Inhalte stärken</li>
+          </ul>
+        </div>
+        <div class="season-card">
+          <p class="s-label">Apr – Jun</p>
+          <p class="s-title">Q2 — Hochsaison</p>
+          <span class="s-peak badge badge-green">Höchste Nachfrage</span>
+          <p>Frühjahrsputz treibt Privatkunden. Baubranche startet. Höchste Schrottpreise durch Industrienachfrage.</p>
+          <ul>
+            <li>Google Ads schalten</li>
+            <li>Haushaltsauflösung pushen</li>
+            <li>Container-Seiten prominent</li>
+          </ul>
+        </div>
+        <div class="season-card">
+          <p class="s-label">Jul – Aug</p>
+          <p class="s-title">Q3 — Sommerloch</p>
+          <span class="s-peak badge badge-gray">Ruhiger</span>
+          <p>Werkferien in NRW: weniger B2B. Privatkunden bleiben stabil. Ideal für Content-Aufbau.</p>
+          <ul>
+            <li>Neue Stadtseiten erstellen</li>
+            <li>Blog-Posts zu Preisen</li>
+            <li>Technisches SEO optimieren</li>
+          </ul>
+        </div>
+        <div class="season-card">
+          <p class="s-label">Sep – Dez</p>
+          <p class="s-title">Q4 — Herbstpeak</p>
+          <span class="s-peak badge badge-orange">Sehr hoch</span>
+          <p>Industrie kehrt zurück, Jahresend-Auflösungen. Stärkstes B2B-Quartal des Jahres.</p>
+          <ul>
+            <li>Firmenauflösung Keywords</li>
+            <li>Jahresend-Budgets nutzen</li>
+            <li>Betriebsauflösung-Content</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- WETTBEWERB -->
+    <div class="section" id="wettbewerb">
+      <div class="section-header">
+        <span class="section-num">10</span>
+        <h2><span>Wettbewerber</span>-Analyse NRW</h2>
+      </div>
+      <p class="section-intro">Diese NRW-weiten Mitbewerber dominieren aktuell die organischen Rankings. Alle nutzen das „City Page Factory"-Modell – HB-Metalle muss dasselbe tun, aber mit lokalem Vorteil in Hamm.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Domain</th><th>Stärke</th><th>Strategie</th><th>HB-Metalle Vorteil</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="kw-cell">schrotthaendler-nrw.de</td>
+              <td><span class="badge badge-red">Sehr stark</span></td>
+              <td>City Page Factory: 1 Seite pro Stadt</td>
+              <td>Kein echter Standort in Hamm</td>
+            </tr>
+            <tr>
+              <td class="kw-cell">schrottankauf-exclusiv.de</td>
+              <td><span class="badge badge-orange">Stark</span></td>
+              <td>Stadt + Service Matrix</td>
+              <td>HB hat echte lokale Präsenz</td>
+            </tr>
+            <tr>
+              <td class="kw-cell">nrw-schrott.de (Klüngelskerl)</td>
+              <td><span class="badge badge-orange">Stark</span></td>
+              <td>Starke Marke + Stadtseiten</td>
+              <td>Hamm nur sekundär abgedeckt</td>
+            </tr>
+            <tr>
+              <td class="kw-cell">schrottankauf-hamm.de</td>
+              <td><span class="badge badge-yellow">Mittel</span></td>
+              <td>Speziell auf Hamm fokussiert</td>
+              <td>Direkter Konkurrent – beobachten!</td>
+            </tr>
+            <tr>
+              <td class="kw-cell">schrotthandel.nrw</td>
+              <td><span class="badge badge-yellow">Mittel</span></td>
+              <td>.nrw TLD, lokale Signale</td>
+              <td>Kein lokales Vertrauenssignal</td>
+            </tr>
+            <tr>
+              <td class="kw-cell">schrottabholung.org</td>
+              <td><span class="badge badge-orange">Stark</span></td>
+              <td>Service-Hauptseiten + Städte</td>
+              <td>Generisch, keine lokale Tiefe</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="infobox" style="margin-top:20px">
+        <strong>Wichtigste Erkenntnis:</strong> Der direkte Konkurrent <strong>schrottankauf-hamm.de</strong> ist der gefährlichste, weil er denselben lokalen Fokus hat. Dieser Domain sollte besondere Aufmerksamkeit gelten. HB-Metalle sollte mit mehr Service-Vielfalt (Demontage, Stapler, Firmenauflösung) als USPs punkten, die dieser Anbieter ggf. nicht abdeckt.
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="border-top:1px solid var(--border);padding:24px 0;margin-top:40px;color:var(--dim);font-size:0.78rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <span>© 2026 HB-Metalle Hamm — Keyword-Recherche</span>
+      <span>Volumenangaben sind Schätzwerte. Validierung via Google Search Console / Google Keyword Planner empfohlen.</span>
+    </div>
+  </main>
+</div>
+</body>
+</html>
