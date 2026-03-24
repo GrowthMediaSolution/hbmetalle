@@ -545,9 +545,11 @@
     /* 2-column hero layout */
     .hero-inner {
       position: relative; z-index: 2;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 40px; align-items: center;
-      padding: 120px 0 100px;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px; align-items: center;
+      padding: 100px 0 72px;
+      min-height: calc(100vh - 80px);
+      min-height: calc(100svh - 80px);
     }
 
     .hero-content {
@@ -562,15 +564,23 @@
     }
     .hero-visual img {
       width: 100%; max-width: 520px; height: auto;
-      transition: transform 0.6s var(--ease);
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(46,204,113,0.1);
+      transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease);
     }
-    .hero-visual:hover img { transform: scale(1.03) translateY(-6px); }
+    .hero-visual:hover img {
+      transform: scale(1.02) translateY(-4px);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.5), 0 0 0 1px rgba(46,204,113,0.2);
+    }
     .hero-visual::before {
       content: ''; position: absolute;
-      width: 80%; height: 80%;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(46,204,113,0.06) 0%, rgba(46,204,113,0.02) 40%, transparent 65%);
+      width: 90%; height: 90%;
+      border-radius: 20px;
+      background: radial-gradient(circle, rgba(46,204,113,0.08) 0%, rgba(46,204,113,0.03) 40%, transparent 65%);
       z-index: -1;
+      transform: translate(8px, 8px);
     }
 
     .hero-badge {
@@ -985,7 +995,7 @@
 
     /* Large laptops / small desktops */
     @media (max-width: 1280px) {
-      .hero-inner { gap: 30px; }
+      .hero-inner { gap: 36px; padding: 88px 0 64px; }
       .hero-headline { font-size: clamp(2.8rem, 5.5vw, 5rem); }
       .hero-visual img { max-width: 440px; }
       .stat-num { font-size: 1.8rem; }
@@ -993,7 +1003,7 @@
     }
 
     @media (max-width: 1024px) {
-      .hero-inner { grid-template-columns: 1fr 0.8fr; gap: 24px; padding: 100px 0 80px; }
+      .hero-inner { grid-template-columns: 1fr 0.8fr; gap: 24px; padding: 80px 0 56px; min-height: auto; }
       .hero-headline { font-size: clamp(2.4rem, 5vw, 3.8rem); }
       .hero-sub { font-size: 1rem; }
       .hero-visual img { max-width: 360px; }
@@ -1221,7 +1231,7 @@
       </div>
 
       <div class="hero-visual" aria-hidden="true">
-        <img src="assets/hb-metalle-team.jpg" alt="" width="520" height="520" loading="eager">
+        <img src="assets/hb-metalle-team.jpg" alt="HB-Metalle Team bei der Arbeit" width="520" height="390" loading="eager">
       </div>
     </div>
   </div>
