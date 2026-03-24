@@ -156,6 +156,24 @@
   }
   </script>
 
+  <!-- ═══ SCHEMA 5 — FAQPage ═══════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Wie läuft die Schrottabholung in Hamm ab?", "acceptedAnswer": { "@type": "Answer", "text": "Termin vereinbaren, wir kommen direkt zu Ihnen und holen den Schrott kostenlos ab – schnell und unkompliziert in Hamm und ganz NRW." }},
+      { "@type": "Question", "name": "Ist die Schrottabholung wirklich kostenlos?", "acceptedAnswer": { "@type": "Answer", "text": "Ja! Bei ausreichender Menge kostenlos. Bei Kupfer oder Messing ist sogar Barankauf direkt vor Ort möglich." }},
+      { "@type": "Question", "name": "Welche Metalle kauft HB-Metalle an?", "acceptedAnswer": { "@type": "Answer", "text": "Alle NE-Metalle: Kupfer, Messing, Aluminium, Zink, Blei, Edelstahl, Kabelreste, Elektromotoren, Maschinen, Stapler und Baumaschinen." }},
+      { "@type": "Question", "name": "In welchen Städten sind Sie tätig?", "acceptedAnswer": { "@type": "Answer", "text": "Hamm, Dortmund, Münster, Unna, Soest, Ahlen, Kamen, Lünen, Bochum, Herne und ganz NRW. Auf Anfrage bis 500 km deutschlandweit." }},
+      { "@type": "Question", "name": "Kann ich Schrott auch bar verkaufen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, Barankauf direkt vor Ort möglich – besonders bei Kupfer und Messing zahlen wir auf Wunsch sofort in bar." }},
+      { "@type": "Question", "name": "Übernehmen Sie auch Firmenauflösungen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, HB-Metalle übernimmt komplette Firmen- und Betriebsauflösungen in NRW – Maschinen, Stapler, Elektromotoren, Metallreste, alles aus einer Hand." }},
+      { "@type": "Question", "name": "Bieten Sie auch Containerdienst an?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, Containerstellung und Abholung in ganz NRW. Flexible Größen für Schrott und Abbruchmaterial." }},
+      { "@type": "Question", "name": "Wie schnell kann HB-Metalle kommen?", "acceptedAnswer": { "@type": "Answer", "text": "Meist innerhalb weniger Werktage. Rufen Sie uns an – wir finden schnell einen Termin für Ihre Schrottabholung in Hamm oder NRW." }}
+    ]
+  }
+  </script>
+
   <style>
     /* ── TOKENS ────────────────────────────────────── */
     :root {
@@ -427,15 +445,17 @@
 
     /* Mobile menu */
     .mobile-menu {
-      display: none; flex-direction: column; gap: 0;
-      position: fixed; top: 70px; left: 0; right: 0;
+      display: flex; flex-direction: column; gap: 0;
+      position: fixed; top: 70px; left: 0; right: 0; bottom: 0;
       background: var(--c-mid);
       border-bottom: 1px solid var(--c-border);
-      z-index: 998; overflow: hidden;
-      transform: translateY(-8px); opacity: 0;
-      transition: opacity var(--dur-mid) var(--ease), transform var(--dur-mid) var(--ease);
+      z-index: 998;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+      transform: translateY(-12px); opacity: 0;
+      visibility: hidden; pointer-events: none;
+      transition: opacity var(--dur-mid) var(--ease), transform var(--dur-mid) var(--ease), visibility 0s linear var(--dur-mid);
     }
-    .mobile-menu.open { display: flex; opacity: 1; transform: translateY(0); }
+    .mobile-menu.open { opacity: 1; transform: translateY(0); visibility: visible; pointer-events: auto; transition-delay: 0s; }
     .mobile-menu a {
       font-family: var(--f-display); font-weight: 700; font-size: 1.05rem;
       letter-spacing: 0.07em; text-transform: uppercase;
@@ -446,11 +466,11 @@
     }
     .mobile-menu a:hover { background: var(--c-light); color: var(--c-green); }
     .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .mobile-sub-links a { min-height: 48px; font-size: 0.95rem !important; }
 
     /* ── HERO ──────────────────────────────────────── */
     #hero {
       position: relative;
-      min-height: 100dvh;
       display: flex; align-items: center;
       overflow: hidden;
       background: #0c0e10;
@@ -640,7 +660,7 @@
     /* Stats row — glassy cards */
     .hero-stats {
       display: flex; flex-wrap: wrap; gap: 18px;
-      margin-top: 56px;
+      margin-top: 40px;
       animation: fadeInUp 0.8s var(--ease-out) 0.8s both;
     }
     .stat-item {
@@ -988,6 +1008,7 @@
     @keyframes fabIn      { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
     @keyframes pulse      { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.5); } }
     @keyframes scrollPulse { 0% { transform: scaleY(0); transform-origin: top; opacity: 0; } 40% { opacity: 1; transform: scaleY(1); transform-origin: top; } 41% { transform-origin: bottom; } 80% { transform: scaleY(0); transform-origin: bottom; opacity: 0; } 100% { opacity: 0; } }
+    @keyframes dotPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(46,204,113,0.5); } 50% { box-shadow: 0 0 0 12px rgba(46,204,113,0); } }
     @keyframes dotPulse   { 0%,100% { box-shadow: 0 0 0 4px rgba(46,204,113,0.18); } 50% { box-shadow: 0 0 0 14px rgba(46,204,113,0.04); } }
     @keyframes countUp    { from { opacity: 0; } to { opacity: 1; } }
 
@@ -1023,7 +1044,7 @@
       section { padding: var(--sp-2xl) 0; }
 
       /* Hero stacks to single column, image below */
-      .hero-inner { grid-template-columns: 1fr; gap: 32px; padding: 100px 0 60px; text-align: center; }
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; padding: 100px 0 60px; text-align: center; min-height: auto; }
       .hero-content { max-width: 100%; }
       .hero-badge { margin-left: auto; margin-right: auto; }
       .hero-btns { justify-content: center; }
@@ -1055,7 +1076,7 @@
     }
 
     @media (max-width: 480px) {
-      .hero-inner { padding: 90px 0 48px; gap: 24px; }
+      .hero-inner { padding: 90px 0 48px; gap: 24px; min-height: auto; }
       .hero-headline { font-size: clamp(2.2rem, 11vw, 3rem); }
       .hero-visual img { max-width: 240px; }
       .hero-stats { gap: var(--sp-sm); flex-wrap: wrap; }
@@ -1196,7 +1217,7 @@
         </h1>
 
         <p class="hero-sub">
-          <strong>Schnell. Fair. Zuverlässig.</strong> — HB-Metalle übernimmt Abholung und Ankauf von Schrott, NE-Metallen, Maschinen und mehr. Kostenlose Abholung in ganz NRW und bis 500 km Umkreis.
+          <strong>Schnell. Fair. Zuverlässig.</strong> — Wir holen Ihren Schrott ab und kaufen NE-Metalle, Maschinen & mehr zu fairen Tagespreisen an. Kostenlose Abholung in ganz NRW und bis 500&nbsp;km Umkreis.
         </p>
 
         <div class="hero-btns">
@@ -1359,12 +1380,12 @@
         <p>Ob einzelne Kabelreste oder komplette Betriebsauflösungen: Wir kümmern uns um alles — sauber, professionell und zu marktgerechten Preisen. Auf Wunsch ist auch ein <strong>Barankauf direkt vor Ort</strong> möglich.</p>
 
         <div class="trust-grid">
-          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Langjährige Erfahrung</strong>in der Schrottbranche</span></div>
-          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Faire & transparente</strong>Preisgestaltung</span></div>
-          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Schnelle Reaktionszeiten</strong>& flexible Termine</span></div>
-          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Barankauf</strong>direkt vor Ort möglich</span></div>
-          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Alle Leistungen</strong>aus einer Hand</span></div>
-          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Saubere & professionelle</strong>Arbeitsweise</span></div>
+          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Langjährige Erfahrung</strong> in der Schrottbranche</span></div>
+          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Faire & transparente</strong> Preisgestaltung</span></div>
+          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Schnelle Reaktionszeiten</strong> & flexible Termine</span></div>
+          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Barankauf</strong> direkt vor Ort möglich</span></div>
+          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Alle Leistungen</strong> aus einer Hand</span></div>
+          <div class="trust-item"><div class="trust-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><span><strong>Saubere & professionelle</strong> Arbeitsweise</span></div>
         </div>
       </div>
 
