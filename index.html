@@ -102,7 +102,8 @@
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "NE-Metalle Ankauf", "description": "Ankauf von Kupfer, Messing, Aluminium, Zink und weiteren Nichteisenmetallen." }},
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Haushaltsauflösung Hamm", "description": "Vollständige Haushaltsauflösungen mit Metallverwertung." }},
         { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Firmenauflösung NRW", "description": "Betriebsauflösungen für Gewerbe und Industrie in ganz NRW." }},
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Containerdienst NRW", "description": "Containerstellung und Abholung für Schrott und Abbruchmaterial." }}
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Containerdienst NRW", "description": "Containerstellung und Abholung für Schrott und Abbruchmaterial." }},
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hartmetall Ankauf", "description": "Ankauf von Hartmetall-Schrott: Wendeplatten, Bohrer, Fräser, Stäbe und Rohlinge aus Wolframcarbid." }}
       ]
     },
     "sameAs": [
@@ -1089,6 +1090,70 @@
       .ziel-card { padding: 24px; }
       .hero-sub { font-size: 0.95rem; }
     }
+
+    /* ── ANKAUFSMATERIALIEN (Foto-Galerie) ─────────── */
+    #ankaufsmaterialien { background: var(--c-mid); border-top: 1px solid var(--c-border); }
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .material-card {
+      background: var(--c-bg); border: 1px solid var(--c-border);
+      border-radius: var(--r-md); overflow: hidden;
+      transition: border-color var(--dur-mid), transform var(--dur-mid) var(--ease), box-shadow var(--dur-mid);
+    }
+    .material-card:hover {
+      border-color: rgba(46,204,113,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.35), 0 0 24px rgba(46,204,113,0.07);
+    }
+    .material-img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block;
+      transition: transform 0.55s var(--ease);
+    }
+    .material-card:hover .material-img { transform: scale(1.04); }
+    .material-body { padding: 20px; }
+    .material-name {
+      font-family: var(--f-display); font-weight: 800; font-size: 1.15rem;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--c-text);
+      margin-bottom: 6px;
+    }
+    .material-desc { font-size: 0.83rem; color: var(--c-muted); line-height: 1.55; }
+    .material-badge {
+      display: inline-block; margin-top: 10px;
+      background: var(--c-green-gl); border: 1px solid rgba(46,204,113,0.3);
+      color: var(--c-green); font-family: var(--f-display); font-weight: 700;
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 100px;
+    }
+    @media (max-width: 900px) { .material-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .material-grid { grid-template-columns: 1fr; } }
+
+    /* ── HARTMETALL ANKAUF ──────────────────────────── */
+    #hartmetall { background: var(--c-bg); }
+    .hartmetall-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .hartmetall-text p { color: var(--c-muted); line-height: 1.75; margin-bottom: var(--sp-md); }
+    .hartmetall-text p strong { color: var(--c-text); }
+    .hartmetall-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: var(--sp-lg); }
+    .hartmetall-list li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.88rem; color: var(--c-muted); line-height: 1.4;
+    }
+    .hartmetall-list li::before {
+      content: ''; width: 6px; height: 6px; background: var(--c-green);
+      border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 6px rgba(46,204,113,0.5);
+    }
+    .hartmetall-list li strong { color: var(--c-text); }
+    .hartmetall-note {
+      background: var(--c-green-gl); border: 1px solid rgba(46,204,113,0.22);
+      border-radius: var(--r-sm); padding: 16px 20px;
+      font-size: 0.85rem; color: var(--c-muted); line-height: 1.6;
+    }
+    .hartmetall-note strong { color: var(--c-green); }
+    @media (max-width: 900px) { .hartmetall-grid { grid-template-columns: 1fr; gap: 40px; } }
   </style>
 </head>
 <body>
@@ -1120,6 +1185,7 @@
             <a href="containerdienst/">Containerdienst</a>
             <a href="maschinen-ankauf/">Maschinen-Ankauf</a>
             <a href="demontage/">Demontage</a>
+            <a href="#hartmetall">Hartmetall Ankauf</a>
           </div>
         </div>
         <a href="#ueber-uns" role="listitem">Über uns</a>
@@ -1237,7 +1303,7 @@
             <span class="stat-label">Einsatzradius</span>
           </div>
           <div class="stat-item">
-            <span class="stat-num" data-count="9" aria-label="9 Dienstleistungen">9+</span>
+            <span class="stat-num" data-count="10" aria-label="10 Dienstleistungen">10+</span>
             <span class="stat-label">Dienstleistungen</span>
           </div>
           <div class="stat-item">
@@ -1362,6 +1428,128 @@
         <div class="svc-tags"><span class="tag">Container</span><span class="tag">Flexible Größen</span><span class="tag">NRW</span></div>
       </article>
 
+      <article class="service-card reveal" role="listitem">
+        <div class="svc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.58 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg></div>
+        <h3 class="svc-title">Hartmetall Ankauf</h3>
+        <p class="svc-desc">Ankauf von Hartmetall-Schrott aller Art: Wendeplatten, Bohrer, Fräser, Stäbe und Rohlinge aus Wolframcarbid und Sintermetall.</p>
+        <div class="svc-tags"><span class="tag">Wendeplatten</span><span class="tag">Bohrer & Fräser</span><span class="tag">Top-Preise</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- ── ANKAUFSMATERIALIEN ─────────────────────────── -->
+<section id="ankaufsmaterialien" aria-labelledby="material-heading">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="section-label">Was wir ankaufen</p>
+      <h2 class="section-title" id="material-heading">NE-Metalle, Kabel &amp; mehr – <span>Was wir abholen</span></h2>
+    </div>
+
+    <div class="material-grid">
+
+      <div class="material-card reveal">
+        <img src="assets/kupfer-coils.jpg" alt="Kupferbänder und Kupfer-Coils Ankauf bei HB-Metalle" class="material-img" width="600" height="450" loading="lazy">
+        <div class="material-body">
+          <div class="material-name">Kupfer</div>
+          <p class="material-desc">Kupferkabel, Kupferdraht, Kupferrohre, Kupferblech und Kupfer-Coils — blankes oder isoliertes Kupfer zu Top-Tagespreisen.</p>
+          <span class="material-badge">Höchstpreise</span>
+        </div>
+      </div>
+
+      <div class="material-card reveal reveal-delay-1">
+        <img src="assets/messing-stangen.jpg" alt="Messingstangen Ankauf bei HB-Metalle" class="material-img" width="600" height="450" loading="lazy">
+        <div class="material-body">
+          <div class="material-name">Messing</div>
+          <p class="material-desc">Messingstangen, Messingprofile, Messingarmaturen und Messingschrott jeder Form — wir kaufen an und holen ab.</p>
+          <span class="material-badge">Barankauf möglich</span>
+        </div>
+      </div>
+
+      <div class="material-card reveal reveal-delay-2">
+        <img src="assets/aluminium-profile.jpg" alt="Aluminiumprofile und Aluschrott Ankauf bei HB-Metalle" class="material-img" width="600" height="450" loading="lazy">
+        <div class="material-body">
+          <div class="material-name">Aluminium</div>
+          <p class="material-desc">Aluminiumprofile, Alubleche, Aluschrott und Alukabel — sortenreiner Ankauf zu marktgerechten Preisen.</p>
+          <span class="material-badge">Alle Sorten</span>
+        </div>
+      </div>
+
+      <div class="material-card reveal">
+        <img src="assets/kabel-schwarz.jpg" alt="Schwarze Kupferkabel und Kabelschrott Ankauf bei HB-Metalle" class="material-img" width="600" height="450" loading="lazy">
+        <div class="material-body">
+          <div class="material-name">Kabel & Leitungen</div>
+          <p class="material-desc">Kupferkabel, Alukabel, Datenkabel und Starkstromkabel — ummanteltes oder bereits abisoliertes Material, jede Menge.</p>
+          <span class="material-badge">Kostenlose Abholung</span>
+        </div>
+      </div>
+
+      <div class="material-card reveal reveal-delay-1">
+        <img src="assets/schrottabholung-container.jpg" alt="Schrottabholung mit Container - Kupferrohre und Buntmetall" class="material-img" width="600" height="450" loading="lazy">
+        <div class="material-body">
+          <div class="material-name">Buntmetall-Schrott</div>
+          <p class="material-desc">Kupferrohre, Armaturen, Fittings, Heizkörper und gemischtes Buntmetall — wir sortieren und bewerten fair vor Ort.</p>
+          <span class="material-badge">Vor-Ort-Bewertung</span>
+        </div>
+      </div>
+
+      <div class="material-card reveal reveal-delay-2">
+        <img src="assets/stahlschrott.jpg" alt="Stahlschrott und Eisenschrott Ankauf bei HB-Metalle" class="material-img" width="600" height="450" loading="lazy">
+        <div class="material-body">
+          <div class="material-name">Stahl & Eisen</div>
+          <p class="material-desc">Stahlplatten, Eisenträger, Stahlrohre, Maschinenteile und sonstiger Eisenschrott — Abholung und Entsorgung in ganz NRW.</p>
+          <span class="material-badge">Containerdienst</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider" aria-hidden="true"></div>
+
+<!-- ── HARTMETALL ANKAUF ──────────────────────────── -->
+<section id="hartmetall" aria-labelledby="hartmetall-heading">
+  <div class="container">
+    <div class="hartmetall-grid">
+
+      <div class="about-visual reveal">
+        <img src="assets/hartmetall.jpg" alt="Hartmetall Ankauf – Wendeplatten, Bohrer und Fräser aus Wolframcarbid" class="about-img" width="600" height="400" loading="lazy">
+      </div>
+
+      <div class="hartmetall-text reveal reveal-delay-1">
+        <p class="section-label">Spezieller Ankauf</p>
+        <h2 class="section-title" id="hartmetall-heading">Hartmetall <span>Ankauf</span></h2>
+        <p>Hartmetall – auch bekannt als Wolframcarbid oder Sintermetall – ist einer der wertvollsten Rohstoffe im Metall-Recycling. HB-Metalle kauft <strong>Hartmetall-Schrott jeder Form und Menge</strong> zu fairen Tagespreisen an.</p>
+        <p>Ob gebrauchte Werkzeuge aus dem Maschinenbau, Reste aus der Fertigung oder ganze Lagerbestände – wir holen ab und zahlen sofort.</p>
+
+        <ul class="hartmetall-list">
+          <li><strong>Wendeplatten & Wendeschneidplatten</strong> – alle Größen und Hersteller</li>
+          <li><strong>Hartmetall-Bohrer & Fräser</strong> – Vollhartmetall und bestückte Werkzeuge</li>
+          <li><strong>Hartmetall-Stäbe & Rohlinge</strong> – Rundstäbe, Vierkant, Formteile</li>
+          <li><strong>Sintermetall-Reste</strong> – Schleifschlamm, Sägespäne, Produktionsreste</li>
+          <li><strong>Hartmetall-Ziehsteine & Matrizen</strong> – aus Draht- und Rohrzieherei</li>
+        </ul>
+
+        <div class="hartmetall-note">
+          <strong>Tipp:</strong> Hartmetall-Schrott enthält bis zu 85 % Wolfram – ein seltenes und begehrtes Metall. Deshalb zahlen wir <strong>deutlich mehr als beim normalen Schrottpreis</strong>. Lohnt sich auch bei kleinen Mengen!
+        </div>
+
+        <div style="margin-top: 24px; display:flex; gap: 12px; flex-wrap: wrap;">
+          <a href="#kontakt" class="btn-primary" style="font-size:0.9rem; padding: 12px 22px;">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:16px;height:16px"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Preis anfragen
+          </a>
+          <a href="tel:+4923810000000" class="btn-outline" style="font-size:0.9rem; padding: 12px 22px;">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:16px;height:16px"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            Direkt anrufen
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1390,7 +1578,7 @@
       </div>
 
       <div class="about-visual reveal reveal-delay-1">
-        <img src="assets/hb-metalle-team.jpg" alt="HB-Metalle Team bei der Schrottabholung in Hamm" class="about-img" width="600" height="400" loading="lazy">
+        <img src="assets/kabel-bunt.jpg" alt="Schrottabholung und Kabelentsorgung – HB-Metalle im Einsatz" class="about-img" width="600" height="400" loading="lazy">
       </div>
     </div>
   </div>
