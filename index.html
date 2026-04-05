@@ -1092,8 +1092,19 @@
     #ankaufsmaterialien { background: var(--c-mid); border-top: 1px solid var(--c-border); }
     .material-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 20px;
+    }
+    .material-grid .material-card:nth-child(1),
+    .material-grid .material-card:nth-child(2),
+    .material-grid .material-card:nth-child(3) {
+      grid-column: span 2;
+    }
+    .material-grid .material-card:nth-child(4) {
+      grid-column: 2 / 4;
+    }
+    .material-grid .material-card:nth-child(5) {
+      grid-column: 4 / 6;
     }
     .material-card {
       background: var(--c-bg); border: 1px solid var(--c-border);
@@ -1124,7 +1135,10 @@
       font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
       padding: 3px 10px; border-radius: 100px;
     }
-    @media (max-width: 900px) { .material-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 900px) {
+      .material-grid { grid-template-columns: repeat(2, 1fr); }
+      .material-grid .material-card { grid-column: auto !important; }
+    }
     @media (max-width: 560px) { .material-grid { grid-template-columns: 1fr; } }
 
     /* ── HARTMETALL ANKAUF ──────────────────────────── */
@@ -1472,15 +1486,6 @@
           <div class="material-name">Buntmetall-Schrott</div>
           <p class="material-desc">Kupferrohre, Armaturen, Fittings und gemischtes Buntmetall — wir sortieren und bewerten fair vor Ort.</p>
           <span class="material-badge">Vor-Ort-Bewertung</span>
-        </div>
-      </div>
-
-      <div class="material-card reveal reveal-delay-2">
-        <img src="assets/stahlschrott.jpg" alt="Kupfer Ankauf bei HB-Metalle – Kupferrohre, Kupferkabel, Kupferschrott" class="material-img" width="600" height="450" loading="lazy">
-        <div class="material-body">
-          <div class="material-name">Kupfer</div>
-          <p class="material-desc">Kupferrohre, Kupferkabel, Kupferfittings, Dachrinnen und sonstiger Kupferschrott — Ankauf zu fairen Tagespreisen in ganz NRW.</p>
-          <span class="material-badge">Top-Preise</span>
         </div>
       </div>
 
