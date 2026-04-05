@@ -157,84 +157,6 @@ const services = [
     ],
   },
   {
-    slug: 'haushaltsaufloesung',
-    title: 'Haushaltsauflösung Hamm & NRW',
-    h1_line1: 'Haushalts-',
-    h1_line2: 'auflösung',
-    metaTitle: 'Haushaltsauflösung Hamm & NRW | Kostenlos bei Metallwert – HB-Metalle',
-    metaDesc: 'Haushaltsauflösung in Hamm und NRW – kostenlos bei ausreichend Metallwert. Entrümpelung, Räumung & Schrottabholung aus einer Hand. Jetzt anfragen!',
-    eyebrow: 'Räumung & Entrümpelung',
-    heroSub: 'Komplette Haushaltsauflösungen in Hamm und ganz NRW. Bei ausreichendem Metallwert sogar kostenlos. Professionelle Räumung, Entrümpelung und Verwertung.',
-    sections: [
-      {
-        title: 'Was umfasst unsere Haushaltsauflösung?',
-        eyebrow: 'Leistungsumfang',
-        content: `<p>Eine Haushaltsauflösung ist oft emotional und logistisch anspruchsvoll. HB-Metalle übernimmt die komplette Abwicklung – professionell, diskret und fair. Wir räumen Wohnungen, Häuser, Keller und Dachböden im gesamten Raum Hamm und NRW.</p>
-        <ul class="checklist">
-          <li><strong>Komplette Wohnungsräumung</strong> – inklusive Keller, Dachboden und Garage</li>
-          <li><strong>Kostenlose Besichtigung</strong> vor Ort mit Festpreisangebot</li>
-          <li><strong>Metalltrennung</strong> – verwertbare Metalle werden angekauft und mindern die Kosten</li>
-          <li><strong>Entrümpelung und Entsorgung</strong> nach gesetzlichen Vorgaben</li>
-          <li><strong>Besenreine Übergabe</strong> – die Räume werden gebrauchsfertig hinterlassen</li>
-          <li><strong>Barankauf</strong> wertvoller Metalle direkt bei der Räumung</li>
-        </ul>`,
-      },
-      {
-        title: 'Wann ist die Auflösung kostenlos?',
-        eyebrow: 'Kosten & Konditionen',
-        content: `<p>Bei jeder Haushaltsauflösung prüfen wir, welche Materialien einen Verwertungswert haben. Kupferrohre, Messingarmaturen, Heizkörper, Waschmaschinen und andere metallhaltige Gegenstände werden von uns angekauft. Wenn der Metallwert die Räumungskosten übersteigt, ist die komplette Auflösung für Sie kostenlos – oder wir zahlen Ihnen sogar einen Betrag aus.</p>
-        <div class="info-box"><p><strong>Häufig kostenlos:</strong> Wohnungen mit alten Heizkörpern, Kupferleitungen, Waschmaschinen, Metallmöbeln oder Werkstattausstattung enthalten oft genug Metallwert für eine kostenlose Räumung.</p></div>`,
-      },
-    ],
-    faq: [
-      ['Was kostet eine Haushaltsauflösung in Hamm?', 'Die Kosten hängen von Größe und Inhalt ab. Bei ausreichend Metallwert ist die Auflösung kostenlos. Wir erstellen Ihnen nach einer Besichtigung ein Festpreisangebot.'],
-      ['Wie schnell können Sie räumen?', 'In der Regel innerhalb von 3-5 Werktagen nach Auftragserteilung. Eilräumungen sind in Hamm oft auch schneller möglich.'],
-      ['Räumen Sie auch Keller und Dachböden?', 'Ja, wir übernehmen die komplette Räumung inklusive Keller, Dachboden, Garage und Gartenhäuser.'],
-      ['Muss ich bei der Räumung anwesend sein?', 'Nein, ein Schlüsselübergabe reicht aus. Wir arbeiten eigenständig und übergeben die Räume besenrein.'],
-    ],
-  },
-  {
-    slug: 'firmenaufloesung',
-    title: 'Firmenauflösung NRW',
-    h1_line1: 'Firmen- &',
-    h1_line2: 'Betriebsauflösung',
-    metaTitle: 'Firmenauflösung NRW | Betriebsauflösung & Maschinenankauf – HB-Metalle',
-    metaDesc: 'Firmenauflösung & Betriebsauflösung in NRW. Maschinen, Metallreste, Stapler & Inventar – HB-Metalle übernimmt alles. Barankauf möglich. Jetzt anfragen!',
-    eyebrow: 'Gewerbe & Industrie',
-    heroSub: 'Komplette Firmen- und Betriebsauflösungen in ganz NRW. Maschinen, Produktionsanlagen, Stapler, Lagerbestände – professionelle Abwicklung mit Barankauf.',
-    sections: [
-      {
-        title: 'Professionelle Betriebsauflösung für Gewerbe & Industrie',
-        eyebrow: 'Unser Service',
-        content: `<p>Ob Insolvenz, Geschäftsaufgabe oder Standortwechsel – HB-Metalle ist Ihr Partner für die komplette Betriebsauflösung in NRW. Wir übernehmen den Rückbau, die Demontage und den Ankauf aller verwertbaren Materialien und Maschinen.</p>
-        <div class="card-grid">
-          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l6.59-6.59L20 9l-8 8z"/></svg></div><h3>Maschinendemontage</h3><p>Fachgerechte Demontage und Abtransport von Produktionsanlagen, CNC-Maschinen und Fertigungsstraßen.</p></div>
-          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l6.59-6.59L20 9l-8 8z"/></svg></div><h3>Stapler & Fahrzeuge</h3><p>Ankauf von Gabelstaplern, Hubwagen, Flurförderzeugen und Betriebsfahrzeugen aller Art.</p></div>
-          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l6.59-6.59L20 9l-8 8z"/></svg></div><h3>Metallreste & Lager</h3><p>Übernahme und Verwertung von Lagerbeständen, Produktionsresten, Halbzeugen und Ausschussmaterial.</p></div>
-          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l6.59-6.59L20 9l-8 8z"/></svg></div><h3>Besenreine Übergabe</h3><p>Komplette Räumung der Betriebsfläche bis zur besenreinen Übergabe an den Vermieter oder Käufer.</p></div>
-        </div>`,
-      },
-      {
-        title: 'Barankauf bei Firmenauflösungen',
-        eyebrow: 'Ihr Vorteil',
-        content: `<p>Bei Firmenauflösungen verbergen sich oft erhebliche Werte in Form von Maschinen, NE-Metallen und Betriebsausstattung. Wir bewerten alles vor Ort und bieten Sofortankauf zu fairen Marktpreisen. Besonders hohe Erlöse erzielen:</p>
-        <ul class="checklist">
-          <li><strong>Kupferkabel und Kupferreste</strong> aus Elektroinstallationen</li>
-          <li><strong>Edelstahlbehälter</strong> aus Lebensmittel- und Chemieindustrie</li>
-          <li><strong>Aluminiumprofile</strong> aus Fenster- und Fassadenbau</li>
-          <li><strong>Gabelstapler</strong> – auch defekte werden angekauft</li>
-          <li><strong>Elektromotoren</strong> jeder Größe und Leistungsklasse</li>
-        </ul>`,
-      },
-    ],
-    faq: [
-      ['Wie läuft eine Firmenauflösung mit HB-Metalle ab?', 'Besichtigung vor Ort, detailliertes Angebot, Terminplanung, Demontage, Abtransport und besenreine Übergabe – alles aus einer Hand.'],
-      ['Kaufen Sie auch defekte Maschinen an?', 'Ja, wir kaufen auch defekte und verschrottungsreife Maschinen, Stapler und Anlagen an. Der Materialwert ist entscheidend.'],
-      ['In welchem Zeitrahmen werden Firmenauflösungen durchgeführt?', 'Je nach Umfang 1-4 Wochen. Eilaufträge sind nach Absprache möglich.'],
-      ['Übernehmen Sie auch die Entsorgung von Sondermüll?', 'Wir kümmern uns um alle metallischen Bestandteile. Für Sondermüll vermitteln wir zertifizierte Entsorgungspartner.'],
-    ],
-  },
-  {
     slug: 'containerdienst',
     title: 'Containerdienst NRW',
     h1_line1: 'Container-',
@@ -411,8 +333,6 @@ function footerHTML(backPath) {
       <div class="footer-col">
         <h4>Weitere Services</h4>
         <ul>
-          <li><a href="${backPath}haushaltsaufloesung/">Haushaltsauflösung</a></li>
-          <li><a href="${backPath}firmenaufloesung/">Firmenauflösung</a></li>
           <li><a href="${backPath}demontage/">Demontage</a></li>
         </ul>
       </div>
