@@ -1,8 +1,10 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
 const app = express();
 app.use(express.json());
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const ALLOWED_ORIGIN = 'https://hb-metalle.de';
 
@@ -17,16 +19,6 @@ app.use((req, res, next) => {
   next();
 });
 
-const transporter = nodemailer.createTransport({
-  host: 'w01f7da9.kasserver.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
-
 app.post('/api/contact', async (req, res) => {
   const { name, phone, email, service, message } = req.body;
 
@@ -34,14 +26,13 @@ app.post('/api/contact', async (req, res) => {
     return res.status(400).json({ error: 'Pflichtfelder fehlen' });
   }
 
-  // Einfache Validierung gegen Injection
-  const safe = (v) => String(v || '').replace(/[\r\n]/g, ' ').slice(0, 500);
+  const safe = (v) => String(v || '').replace(/[<>]/g, '').slice(0, 500);
 
   try {
-    await transporter.sendMail({
-      from: `"HB-Metalle Kontaktformular" <${process.env.SMTP_USER}>`,
-      to: process.env.SMTP_USER,
-      replyTo: email ? safe(email) : undefined,
+    await resend.emails.send({
+      from: 'HB-Metalle Kontaktformular <onboarding@resend.dev>',
+      to: 'info@hb-metalle.de',
+      reply_to: email ? safe(email) : undefined,
       subject: `Neue Anfrage: ${safe(service)} von ${safe(name)}`,
       text: [
         `Name:     ${safe(name)}`,
@@ -54,10 +45,10 @@ app.post('/api/contact', async (req, res) => {
 
     res.json({ ok: true });
   } catch (err) {
-    console.error('Mailer error:', err.message);
+    console.error('Resend error:', err.message);
     res.status(500).json({ error: 'Versand fehlgeschlagen' });
   }
 });
 
-const PORT = process.env.PORT || 3023;
+const PORT = process.env.PORT || 3024;
 app.listen(PORT, '127.0.0.1', () => console.log(`Mailer läuft auf Port ${PORT}`));
