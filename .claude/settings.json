@@ -43,7 +43,10 @@
       "Bash(caddy validate:*)",
       "Bash(sudo systemctl:*)",
       "Bash(curl -sI https://hb-metalle.de)",
-      "Bash(systemctl reload:*)"
+      "Bash(systemctl reload:*)",
+      "Bash(curl -v https://hb-metalle.de)",
+      "Bash(dig +short hb-metalle.de A)",
+      "Bash(dig +short hb-metalle.de AAAA)"
     ],
     "additionalDirectories": [
       "/tmp",
