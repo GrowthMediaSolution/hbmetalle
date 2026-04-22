@@ -1,0 +1,53 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sshpass -p 'Entsorgung2026!' ssh -o StrictHostKeyChecking=no -p 22 su686458@access-5020273451.webspace-host.com 'pwd && ls')",
+      "Bash(sshpass -p:*)",
+      "Bash(lftp -u su686458,'Entsorgung2026!' -e \":*)",
+      "Bash(lftp sftp://su686458:'Entsorgung2026!'@access-5020273451.webspace-host.com -e \":*)",
+      "Bash(lftp -e \":*)",
+      "Bash(/tmp/lftp_upload.txt:*)",
+      "Bash(lftp -f /tmp/lftp_upload.txt)",
+      "Bash(dig hb-metalle.de A +short)",
+      "Bash(dig www.hb-metalle.de A +short)",
+      "Bash(curl -I --max-time 10 https://hb-metalle.de)",
+      "Bash(curl -I --max-time 10 http://hb-metalle.de)",
+      "Bash(curl -I --max-time 10 -L http://hb-metalle.de)",
+      "Bash(/tmp/lftp_htaccess.txt:*)",
+      "Bash(lftp -f /tmp/lftp_htaccess.txt)",
+      "Skill(agent-browser)",
+      "Skill(agent-browser:*)",
+      "Bash(curl -I --max-time 15 https://hb-metalle.de)",
+      "Bash(curl -I --max-time 15 https://www.hb-metalle.de)",
+      "Bash(agent-browser open:*)",
+      "Bash(agent-browser wait:*)",
+      "Bash(agent-browser snapshot:*)",
+      "Bash(agent-browser click:*)",
+      "Bash(agent-browser get:*)",
+      "Bash(agent-browser scroll:*)",
+      "Bash(agent-browser screenshot:*)",
+      "Bash(agent-browser find:*)",
+      "Bash(git -C /home/gms/projekte/hbmetalle remote -v)",
+      "Bash(git -C /home/gms/projekte/hbmetalle status)",
+      "Bash(git -C /home/gms/projekte/hbmetalle log --oneline -5)",
+      "Bash(cat /home/gms/projekte/hbmetalle/.github/workflows/*.yml)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(nginx -v)",
+      "Bash(apache2 -v)",
+      "Bash(caddy version:*)",
+      "Bash(curl -s ifconfig.me)",
+      "Bash(dig +short hb-metalle.de)",
+      "Bash(dig +short www.hb-metalle.de)",
+      "Bash(caddy validate:*)",
+      "Bash(sudo systemctl:*)",
+      "Bash(curl -sI https://hb-metalle.de)",
+      "Bash(systemctl reload:*)"
+    ],
+    "additionalDirectories": [
+      "/tmp",
+      "/etc/caddy/sites"
+    ]
+  }
+}
