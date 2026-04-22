@@ -443,9 +443,7 @@ function generateCityPage(city) {
   <meta property="og:type" content="website">
   <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:locale" content="de_DE">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="${backPath}assets/fonts.css">
   <link rel="stylesheet" href="${backPath}assets/subpage.css">
   <script type="application/ld+json">
   {
@@ -610,9 +608,7 @@ function generateServicePage(svc) {
   <meta property="og:type" content="website">
   <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:locale" content="de_DE">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="${backPath}assets/fonts.css">
   <link rel="stylesheet" href="${backPath}assets/subpage.css">
   <script type="application/ld+json">
   {
