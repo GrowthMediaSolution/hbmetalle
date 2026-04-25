@@ -1,11 +1,11 @@
-# HTTPS erzwingen (deaktiviert bis SSL-Zertifikat aktiv)
+# HTTPS erzwingen
 RewriteEngine On
-# RewriteCond %{HTTPS} off
-# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # www auf non-www weiterleiten
 RewriteCond %{HTTP_HOST} ^www\.hb-metalle\.de$ [NC]
-RewriteRule ^ http://hb-metalle.de%{REQUEST_URI} [L,R=301]
+RewriteRule ^ https://hb-metalle.de%{REQUEST_URI} [L,R=301]
 
 # MIME-Types
 AddType font/woff2 .woff2
